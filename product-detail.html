@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | Angel Spring Precision</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/products-slider.css">
+  <link rel="stylesheet" href="css/product-detail-responsive.css">
+  <link rel="stylesheet" href="css/product-detail-animations.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Slick Slider CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+  <style>
+    body {
+      background-color: #050505;
+      color: var(--white);
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Premium Product Detail Redesign Styles */
+    .detail-main-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+    }
+
+    .detail-visuals {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .detail-thumbnails-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .thumb-item {
+      background: #fff;
+      border: 2px solid transparent;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80px;
+    }
+
+    .thumb-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .thumb-item.active {
+      border-color: var(--white);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .visual-footer-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-secondary-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--white);
+    }
+
+    /* Right Column Styles */
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      gap: 20px;
+    }
+
+    .header-top-row h2 {
+      font-size: 1.8rem;
+      color: var(--white);
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .btn-callback-premium {
+      background: transparent;
+      border: 1px solid #4a90e2;
+      color: #4a90e2;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .btn-callback-premium:hover {
+      background: #4a90e2;
+      color: #fff;
+    }
+
+    .premium-price-container {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 30px;
+      padding-top: 20px;
+    }
+
+    .premium-price-container label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .currency,
+    .unit {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .price-row .amount {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .btn-get-best-price {
+      margin-left: 15px;
+      color: #4a90e2;
+      text-decoration: underline;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .premium-details-label {
+      margin-top: 35px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: var(--white);
+      opacity: 0.8;
+    }
+
+    /* Specs Table */
+    .premium-specs-table {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .spec-row {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.3s ease;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .spec-key {
+      width: 40%;
+      padding: 15px 20px;
+      color: var(--steel-grey);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .spec-val {
+      width: 60%;
+      padding: 15px 20px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .premium-actions {
+      margin-top: 40px;
+    }
+
+    .btn-interest {
+      background: #4a90e2;
+      color: #fff;
+      width: 100%;
+      padding: 18px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(74, 144, 226, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn-interest:hover {
+      background: #357abd;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(74, 144, 226, 0.3);
+    }
+
+    .btn-call-action {
+      background: #ffffff !important;
+      color: #000000 !important;
+      font-weight: 700 !important;
+      transition: all 0.3s ease;
+    }
+
+    .btn-call-action:hover {
+      background: #e0e0e0 !important;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .detail-features-premium {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .premium-features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .premium-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--steel-grey);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .premium-feature-item i {
+      color: #4CAF50;
+      font-size: 0.8rem;
+    }
+
+    /* Description Section */
+    .detail-description-section {
+      margin-top: 60px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    .detail-description-section h3 {
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .detail-description-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #4a90e2;
+    }
+
+    .description-content {
+      line-height: 1.8;
+      color: var(--steel-grey);
+      font-size: 1rem;
+    }
+
+    .description-content p {
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .detail-main-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .header-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .detail-description-section {
+        padding: 30px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .detail-thumbnails-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .thumb-item {
+        height: 60px;
+      }
+
+      .price-row .amount {
+        font-size: 1.8rem;
+      }
+
+      .spec-key {
+        width: 45%;
+        padding: 12px 15px;
+      }
+
+      .spec-val {
+        width: 55%;
+        padding: 12px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Industrial System Ticker -->
+  <div class="system-ticker">
+    <div class="ticker-wrap">
+      <div class="ticker-item">
+        <div class="status-dot"></div> FACILITY STATUS: <span>OPERATIONAL</span>
+      </div>
+      <div class="ticker-item"><i class="fas fa-microchip"></i> PRECISION INDEX: <span>99.98%</span></div>
+      <div class="ticker-item"><i class="fas fa-thermometer-half"></i> TEMPERING TEMP: <span>450&deg;C</span></div>
+      <div class="ticker-item"><i class="fas fa-truck-loading"></i> ACTIVE EXPORTS: <span>14 UNITS</span></div>
+      <div class="ticker-item"><i class="fas fa-shield-alt"></i> ISO COMPLIANCE: <span>VERIFIED</span></div>
+      <!-- Duplicated for infinite loop -->
+      <div class="ticker-item">
+        <div class="status-dot"></div> FACILITY STATUS: <span>OPERATIONAL</span>
+      </div>
+      <div class="ticker-item"><i class="fas fa-microchip"></i> PRECISION INDEX: <span>99.98%</span></div>
+      <div class="ticker-item"><i class="fas fa-shield-alt"></i> ISO COMPLIANCE: <span>VERIFIED</span></div>
+    </div>
+  </div>
+
+  <!-- Branded Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="spring-logo">
+        <div class="loader-pulse"></div>
+        <!-- <i class="fas fa-cube"></i> -->
+        <img src="assets/logo.png" alt="Angel Spring"
+          style="width: 100%; height: auto; position: relative; z-index: 2;">
+      </div>
+      <div class="loader-text">Angel <span>Spring</span></div>
+    </div>
+  </div>
+
+  <!-- Fixed Social Sidebar -->
+  <div class="fixed-socials animate-up">
+    <div class="social-vertical-line"></div>
+    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+    <div class="social-vertical-line bottom"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header id="main-header">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="Angel Spring">
+    </a>
+    <div class="nav-toggle" id="nav-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav id="nav-menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quality.html">Quality</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary nav-cta-mobile">Get Quote</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary nav-cta">Get Quote</a>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero secondary-hero" id="detail-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-glass-box animate-up">
+        <span class="detail-category" id="detail-category-label">ENGINEERING SERIES</span>
+        <h1 id="detail-title" class="reveal-text"><span>Product Title</span></h1>
+        <p id="detail-desc-hero">Technical Specifications & Engineering Data.</p>
+        <div class="hero-line text-center"></div>
+        <div class="cta-group" style="margin-top: 30px;">
+          <a href="products.html" class="btn btn-secondary">
+            <i class="fas fa-th"></i> View Catalog
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="product-detail-page">
+    <!-- Background Decor -->
+    <div class="detail-bg-grid"></div>
+
+    <div class="detail-container">
+      <div class="detail-main-grid">
+        <!-- Left: Interactive Image Gallery -->
+        <div class="detail-visuals animate-up">
+          <div class="detail-image-wrapper">
+            <div class="scanner-effect"></div>
+            <img id="detail-main-img" src="" alt="Product Detail">
+            <div class="image-hud-corners">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <!-- New: Thumbnail Gallery -->
+          <div class="detail-thumbnails-container">
+            <div class="thumb-item active"><img src="" alt="View 1" class="thumb-img"></div>
+            <div class="thumb-item"><img src="" alt="View 2" class="thumb-img"></div>
+            <div class="thumb-item"><img src="" alt="View 3" class="thumb-img"></div>
+            <div class="thumb-item"><img src="" alt="View 4" class="thumb-img"></div>
+          </div>
+          <div class="visual-footer-actions">
+            <button class="btn btn-secondary-outline" id="visual-quote-btn">
+              <i class="far fa-envelope"></i> Get Best Quote
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Content & Specs -->
+        <div class="detail-info">
+          <div class="detail-header-premium animate-up">
+            <div class="header-top-row">
+              <h2 id="premium-detail-title">Loading Product...</h2>
+              <button class="btn-callback-premium" onclick="openQuoteModal(event, 'Callback Request')">
+                <i class="fas fa-phone-alt"></i> Request A Callback
+              </button>
+            </div>
+
+            <!-- Price Section -->
+            <div class="premium-price-container">
+              <label>Product Price:</label>
+              <div class="price-row">
+                <span class="currency">Rs</span>
+                <span class="amount" id="premium-price-val">70</span>
+                <span class="unit">/ Piece</span>
+                <a href="#" class="btn-get-best-price" onclick="openQuoteModal(event, 'Best Price Inquiry')">Get Best
+                  Price</a>
+              </div>
+            </div>
+
+            <div class="premium-details-label">Product Details:</div>
+
+            <!-- Tabular Specs -->
+            <div class="premium-specs-table" id="premium-specs-table">
+              <!-- Dynamically Populated Rows -->
+            </div>
+
+            <div class="premium-actions"
+              style="display: flex; gap: 10px; margin-top: 30px; align-items: stretch; flex-wrap: wrap;">
+              <button class="btn btn-interest" id="detail-interest-btn"
+                style="flex: 1; min-width: 200px; height: 56px; font-weight: 700; letter-spacing: 1px;">
+                YES! I AM INTERESTED
+              </button>
+              <div style="display: flex; gap: 10px;">
+                <a href="tel:+919586526793" class="btn btn-call-action"
+                  style="width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 4px; text-decoration: none; flex-shrink: 0; padding: 0;">
+                  <i class="fas fa-phone-alt" style="font-size: 1.1rem;"></i>
+                </a>
+                <a href="https://wa.me/919586526793" target="_blank" class="btn"
+                  style="background: #25d366; border-color: #25d366; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; color: white !important; border-radius: 4px; text-decoration: none; flex-shrink: 0; padding: 0;">
+                  <i class="fab fa-whatsapp" style="font-size: 1.35rem;"></i>
+                </a>
+                <a href="mailto:rfq@angelspring.com" class="btn"
+                  style="background: #4a90e2; border-color: #4a90e2; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; color: white !important; border-radius: 4px; text-decoration: none; flex-shrink: 0; padding: 0;">
+                  <i class="fas fa-envelope" style="font-size: 1.15rem;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Features / Material Advantages -->
+          <div class="detail-features-premium animate-up">
+            <h3><i class="fas fa-shield-alt"></i> Material Advantages</h3>
+            <div class="premium-features-list" id="detail-features-tags">
+              <!-- Dynamic Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New: Detailed Description Section -->
+      <div class="detail-description-section animate-up">
+        <h3>Product Description</h3>
+        <div class="description-content" id="detail-long-desc">
+          <p>Loading comprehensive product analysis...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engineering Lab Benchmarks -->
+    <section class="detail-benchmarks">
+      <div class="benchmark-container animate-up">
+        <div class="benchmark-item">
+          <div class="metric-circle">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" class="bg"></circle>
+              <circle cx="50" cy="50" r="45" class="progress" style="stroke-dashoffset: 40;"></circle>
+            </svg>
+            <span class="metric-val">99.8%</span>
+          </div>
+          <h4>Fatigue Resistance</h4>
+        </div>
+        <div class="benchmark-item">
+          <div class="metric-circle">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" class="bg"></circle>
+              <circle cx="50" cy="50" r="45" class="progress" style="stroke-dashoffset: 80;"></circle>
+            </svg>
+            <span class="metric-val">45+ HRC</span>
+          </div>
+          <h4>Tensile Hardness</h4>
+        </div>
+        <div class="benchmark-item">
+          <div class="metric-circle">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" class="bg"></circle>
+              <circle cx="50" cy="50" r="45" class="progress" style="stroke-dashoffset: 20;"></circle>
+            </svg>
+            <span class="metric-val">Zero</span>
+          </div>
+          <h4>Thermal Drift</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Manufacturing Cycle -->
+    <section class="manufacturing-cycle">
+      <div class="section-header">
+        <div class="tag animate-up">Precision Pipeline</div>
+        <h2 class="animate-up">Engineering Lifecycle</h2>
+        <p class="animate-up">From metallurgical selection to final stress relief.</p>
+      </div>
+
+      <div class="cycle-grid">
+        <div class="cycle-step animate-up">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="fas fa-microscope"></i></div>
+          <h3>Alloy Selection</h3>
+          <p>Micro-structural analysis of raw wire to ensure zero impurity propagation.</p>
+        </div>
+        <div class="cycle-step animate-up">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="fas fa-vector-square"></i></div>
+          <h3>CNC Geometry</h3>
+          <p>Precision coiling at tolerances of ±0.01mm using proprietary digital tooling.</p>
+        </div>
+        <div class="cycle-step animate-up">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="fas fa-fire"></i></div>
+          <h3>Stress Relief</h3>
+          <p>Controlled thermal processing to lock in the mechanical memory of the alloy.</p>
+        </div>
+        <div class="cycle-step animate-up">
+          <div class="step-num">04</div>
+          <div class="step-icon"><i class="fas fa-vial"></i></div>
+          <h3>Quality Nodes</h3>
+          <p>Load testing across 5-point force benchmarks for absolute consistency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Material Science / Detailed Specs Section -->
+    <section class="detail-deep-dive">
+      <div class="section-header">
+        <h2 class="animate-up">Metallurgical Consistency</h2>
+        <div class="underline animate-up"></div>
+      </div>
+      <div class="deep-dive-grid">
+        <div class="dive-card animate-up">
+          <i class="fas fa-check-circle"></i>
+          <h4>certified Alloys</h4>
+          <p>Standard and specialized stainless steel grades with full MTR traceability.</p>
+        </div>
+        <div class="dive-card animate-up">
+          <i class="fas fa-sync"></i>
+          <h4>Precision Forming</h4>
+          <p>CNC formed with tolerances maintained within industry-leading parameters.</p>
+        </div>
+        <div class="dive-card animate-up">
+          <i class="fas fa-shield-virus"></i>
+          <h4>Surface Integrity</h4>
+          <p>Stress-relieved and treated for maximum corrosion resistance and longevity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="related-section">
+      <div class="section-header">
+        <h2>Other Products</h2>
+        <div class="underline"></div>
+      </div>
+      <div class="products-slider-wrapper">
+        <div class="products-slider" id="detail-products-slider">
+          <!-- Product Items Injected via JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="main-footer">
+    <div class="footer-cta-card animate-up">
+      <div>
+        <h2>Ready to Engineer the Future?</h2>
+        <p>Book a technical consultation with our lead metallurgical team.</p>
+      </div>
+      <a href="contact.html" class="btn btn-primary">Start Your Project</a>
+    </div>
+
+    <div class="footer-grid animate-up">
+      <div class="footer-col">
+        <a href="index.html" class="logo">
+          <img src="assets/logo.png" alt="Angel Spring">
+        </a>
+        <p class="footer-desc">
+          World-class precision engineering in stainless steel. Specialized in high-fatigue spring solutions
+          for aerospace, medical, and energy sectors.
+        </p>
+        <div class="footer-socials">
+          <a href="#" class="social-circle" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-circle" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-circle" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 25px; letter-spacing: 2px;">Core
+          Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="products.html?filter=compression"><i class="fas fa-chevron-right"
+                style="font-size: 0.6rem; margin-right: 10px; opacity: 0.5;"></i> Compression
+              Springs</a></li>
+          <li><a href="products.html?filter=industrial"><i class="fas fa-chevron-right"
+                style="font-size: 0.6rem; margin-right: 10px; opacity: 0.5;"></i> Industrial
+              Springs</a></li>
+          <li><a href="products.html?filter=stainless"><i class="fas fa-chevron-right"
+                style="font-size: 0.6rem; margin-right: 10px; opacity: 0.5;"></i> Stainless Steel
+              Springs</a></li>
+          <li><a href="products.html?filter=other"><i class="fas fa-chevron-right"
+                style="font-size: 0.6rem; margin-right: 10px; opacity: 0.5;"></i> Other
+              Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="quality.html">Quality Certs</a></li>
+          <li><a href="about.html">Heritage</a></li>
+          <li><a href="#">Technical Data</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="contact.html">Request Quote</a></li>
+          <li><a href="contact.html">Help Center</a></li>
+          <li><a href="contact.html">Distributors</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom animate-up">
+      <p>&copy; 2026 Angel Spring Precision Engineering. All Rights Reserved. <span class="footer-sep">|</span>
+        <span class="footer-iso">ISO 9001:2015 CERTIFIED</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Action Buttons -->
+  <div class="fab-container">
+    <a href="#" class="fab-btn back-to-top">
+      <i class="fas fa-chevron-up"></i>
+      <span class="btn-tooltip">Back to Top</span>
+    </a>
+    <a href="https://wa.me/919586526793" class="fab-btn whatsapp-btn" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+      <span class="btn-tooltip">Chat with us</span>
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const productTitle = params.get('name');
+
+      if (!productTitle) {
+        window.location.href = 'products.html';
+        return;
+      }
+
+      // Try to get product data from sessionStorage
+      let productData = JSON.parse(sessionStorage.getItem('activeProductDetail'));
+
+      // Fallback: Comprehensive Product Catalog with Full Details
+      if (!productData) {
+        const productCatalog = {
+          'wide-range-of-ss-compression-spring': {
+            title: 'Wide Range of SS Compression Spring',
+            desc: 'Our product range includes a wide range of SS Compression Spring, SS Compression Springs, Compression Springs, and Stainless Steel Compression Spring.',
+            detailedDesc: 'Our engineering facility specializes in manufacturing an extensive variety of stainless steel compression springs. We utilize state-of-the-art CNC coiling technology to ensure absolute dimensional precision across our entire catalog. These springs are specifically designed for critical applications requiring high fatigue resistance and superior metallurgical consistency. By employing controlled heat treatment and stress-relief processes, we achieve a product that thrives in challenging industrial environments where standard springs might fail.',
+            img: 'assets/a_wide_range_of_SS_Compression_Spring-removebg-preview.png',
+            category: 'compression',
+            specs: {
+              "Material": "SS 304/316 Grade",
+              "Wire Diameter": "0.1mm - 50mm",
+              "Outer Diameter": "Customizable",
+              "Spring Rate": "Calculated per spec",
+              "End Type": "Squared & Ground",
+              "Standards": "ISO 9001:2015",
+              "Surface": "Passivated / Electro-polished",
+              "Price": "Rs 85 / Piece"
+            },
+            features: ["High Load Bearing", "Micro-precision Winding", "Corrosion Resistant", "Stress Relieved", "Certified Metallurgy"]
+          },
+          'ss-compression-spring': {
+            title: 'SS Compression Spring',
+            desc: 'Load-rated Grade 304/316 precision compression coils for critical industrial machinery.',
+            detailedDesc: 'Manufactured from premium Grade 304 and 316 stainless steel, our compression springs are the industry benchmark for durability and hygiene. Each coil is engineered using advanced spring calculation software to guarantee consistent performance under high-duty cycles and extreme temperature variations. Ideal for use in chemical processing, food production, and maritime engineering where maximum rust-resistance and sanitary compliance are non-negotiable requirements.',
+            img: 'assets/Compression_Spring-removebg-preview.png',
+            category: 'compression',
+            specs: {
+              "Alloy": "SS 304 / SS 316",
+              "Wire Dia": "0.5mm - 20mm",
+              "Coiling Method": "CNC Precision",
+              "Load Stability": "Ultra-High",
+              "Heat Treatment": "Full Tempering",
+              "ISO Compliance": "9001:2015",
+              "Service Life": "5M+ Cycles",
+              "Price": "Rs 120 / Piece"
+            },
+            features: ["Fatigue Resistant", "Salt-Spray Tested", "Precision Tolerance", "Industrial Grade"]
+          },
+          'ss-coil-spring': {
+            title: 'SS Coil Spring',
+            desc: 'High-tensile industrial compression springs optimized for automotive and heavy machinery.',
+            detailedDesc: 'Our SS Coil Springs are specifically developed for high-impact automotive suspensions and heavy industrial machinery. By utilizing high-tensile spring steel and proprietary quenching processes, we achieve a superior recovery rate compared to standard coils. These springs maintain their structural integrity across millions of compression cycles, providing reliable dampening and force distribution even under the most rigorous dynamic loads.',
+            img: 'assets/SS_304_Compression_Spring-removebg-preview.png',
+            category: 'compression',
+            specs: {
+              "Application": "Automotive / Dynamic",
+              "Wire Diameter": "4 mm",
+              "Outer Diameter": "30 mm",
+              "Free Length": "200 mm",
+              "Material": "Chrome Silicon Steel",
+              "Load Rating": "2500 N",
+              "Surface": "Zinc Plated",
+              "Price": "Rs 70 / Piece"
+            },
+            features: ["High Impact Recovery", "Vibration Isolation", "Automotive Standards", "Extended Duty Cycle"]
+          },
+          'ss-304-compression': {
+            title: 'SS 304 Compression',
+            desc: 'Industrial-grade SS 304 compression springs for standard mechanical use.',
+            detailedDesc: 'The SS 304 Compression series offers an economical yet highly reliable solution for general mechanical assemblies. These springs provide excellent resistance to atmospheric corrosion and are suitable for moderately demanding industrial environments. We maintain a large inventory of standard sizes, ensuring immediate deployment for manufacturing lines that require consistent quality and verified load characteristics without the lead times of custom orders.',
+            img: 'assets/SS_304_Compression_Spring-removebg-preview.png',
+            category: 'compression',
+            specs: {
+              "Material": "Stainless Steel 304",
+              "Standard": "ASTM A313",
+              "Origin": "Ahmedabad Factory",
+              "Wire Range": "1.0mm - 25mm",
+              "Coil Direction": "Right Hand (Std)",
+              "Finish": "Natural / Satin",
+              "Price": "Rs 65 / Piece"
+            },
+            features: ["Standardized Fit", "Anti-Oxidation", "Uniform Pitch", "Quick Shipping"]
+          },
+          '10mm-stainless-steel-compression-spring': {
+            title: '10mm Stainless Steel Compression Spring',
+            desc: 'Heavy-duty 10mm gauge stainless steel springs for architectural and industrial dampening.',
+            detailedDesc: 'Specifically engineered for architectural dampening and heavy industrial equipment, these 10mm gauge springs are among the strongest in our catalog. They are designed to absorb extreme shocks and provide stable structural support in high-load scenarios. The large wire diameter requires specialized CNC forming and precise metallurgical control to maintain the required geometry and energy-absorption characteristics.',
+            img: 'assets/10mm_Stainless_Steel_Compression_Spring-removebg-preview.png',
+            category: 'compression',
+            specs: {
+              "Gauge": "10.0 mm",
+              "Material": "Industrial SS 316",
+              "Max Load": "5000 N",
+              "Outer Dia": "80 mm",
+              "Height": "300 mm",
+              "Weight": "approx 1.2kg/unit",
+              "Price": "Rs 450 / Piece"
+            },
+            features: ["Extreme Duty Ready", "Heavy Impact Resilient", "Marine Grade Steel", "Structural Reliability"]
+          },
+          'taper-spring': {
+            title: 'Taper Spring',
+            desc: 'Expertly crafted Taper Spring and Taper Springs for industrial stability.',
+            detailedDesc: 'Taper (Conical) springs are essential for applications where space is at a premium and a variable spring rate is needed. Their unique geometry allows coils to "nest" within each other, providing a significant reduction in solid height compared to traditional cylindrical springs. Our taper springs are precision-wound to ensure smooth progressive compression without buckling, making them ideal for high-speed mechanical linkages and battery contacts.',
+            img: 'assets/Taper_Spring-removebg-preview.png',
+            category: 'other',
+            specs: {
+              "Geometry": "Conical / Taper",
+              "Material": "Premium Spring Steel",
+              "Spring Rate": "Variable / Progressive",
+              "Stability": "Anti-Buckling",
+              "Base Diameter": "60 mm",
+              "Top Diameter": "20 mm",
+              "Coating": "Oil Tempered",
+              "Price": "Rs 180 / Piece"
+            },
+            features: ["Space Saving Design", "Variable Load Rate", "Anti-Nesting Coils", "High Lateral Stability"]
+          },
+          'precision-taper-spring': {
+            title: 'Precision Taper Spring',
+            desc: 'High-precision Conical springs for advanced engineering assemblies.',
+            detailedDesc: 'Our Precision Taper Series represents the pinnacle of conical spring engineering. These springs are designed for intricate aerospace and medical assemblies where progressive force and absolute reliability are required in a minimal footprint. Each unit is laser-verified for dimensional accuracy and load consistency across its entire travel range, ensuring zero failure in mission-critical environments.',
+            img: 'assets/Taper_Spring-removebg-preview.png',
+            category: 'other',
+            specs: {
+              "Type": "Conical Precision",
+              "Material": "SS 302/304",
+              "Rate": "Progressive",
+              "Origin": "Ahmedabad",
+              "Tolerance": "±0.05mm",
+              "Load Nodes": "6-Point Verified",
+              "Price": "Rs 210 / Piece"
+            },
+            features: ["Progressive Load", "Laser Verified", "Compact Form", "Precision Wound"]
+          },
+          'wire-spring-steel-spring': {
+            title: 'Wire Spring Steel Spring',
+            desc: 'Leading Manufacturer of Wire Spring Steel Spring from Ahmedabad, India.',
+            detailedDesc: 'Utilizing high-carbon spring steel wire, we manufacture industrial-strength springs optimized for maximum return force. These springs undergo a specialized oil-tempering process to achieve a hardness of 45-50 HRC, ensuring they do not "set" or deform even under constant heavy load. They serve as the reliable backbone for high-performance industrial production machines across various sectors.',
+            img: 'assets/Wire_Spring_Steel_Spring-removebg-preview (1).png',
+            category: 'industrial',
+            specs: {
+              "Wire Alloy": "High Carbon Steel",
+              "Process": "Oil Tempered",
+              "Hardness": "45-50 HRC",
+              "Fatigue Life": "10M+ Cycles",
+              "Stability": "Industrial High",
+              "Corrosion": "Standard Protected",
+              "Price": "Rs 110 / Piece"
+            },
+            features: ["Maximum Return Force", "No-Set Guarantee", "High Carbon Strength", "Industrial Standard"]
+          },
+          'tension-springs-1.0mm': {
+            title: 'Tension Springs 1.0mm',
+            desc: 'Precision 1.0mm gauge tension springs with reinforced mounting hooks.',
+            detailedDesc: 'Our 1.0mm tension springs are designed for accurate pull-force in mechanical linkages and automation electronics. The hooks are reinforced using proprietary stress-relief heating to prevent premature failure at the mounting points—a common issue in standard tension springs. We offer custom hook geometries and initial tension calibration to meet the exact requirements of high-precision assemblies.',
+            img: 'assets/Tension_Springs_1.0mm-removebg-preview.png',
+            category: 'industrial',
+            specs: {
+              "Diameter": "1.0 mm Wire",
+              "End Style": "Machine Hooks",
+              "Material": "Music Wire / SS 304",
+              "Surface": "Bright Plated",
+              "Cycle Life": "Ultra-Dynamic",
+              "Origin": "India",
+              "Price": "Rs 45 / Piece"
+            },
+            features: ["Reinforced Hooks", "Linear Extension", "Plated for Purity", "Electronic-Grade Precision"]
+          },
+          'ms-spring': {
+            title: 'Ms Spring',
+            desc: 'Leading Manufacturer of Ms Spring from Ahmedabad, India.',
+            detailedDesc: 'Our Mild Steel (MS) heavy-duty springs are the cost-effective choice for large-scale agricultural equipment and robust industrial dampening. While being economical, they are manufactured with the same geometric precision as our high-end alloy springs. Every unit is treated with industrial anti-rust oil or high-performance coatings to prolong service life in challenging open-air environments.',
+            img: 'assets/Ms_Spring-removebg-preview.png',
+            category: 'industrial',
+            specs: {
+              "Material": "Mild Steel (High Grade)",
+              "Size Range": "Custom",
+              "Strength": "Standard Industrial",
+              "Applications": "Agricultural/Heavy Press",
+              "Finish": "Anti-Rust Oil Coating",
+              "Reliability": "Verified",
+              "Price": "Rs 90 / Piece"
+            },
+            features: ["Economical Solution", "Heavy Load Duty", "Versatile Application", "Robust Build"]
+          },
+          'tension-spring': {
+            title: 'Tension Spring',
+            desc: 'Leading Manufacturer of Tension Spring and Tension Springs from Ahmedabad.',
+            detailedDesc: 'Precision-engineered for high return force, our tension springs (extension springs) are used across global manufacturing sectors. We maintain strict control over the "initial tension" during winding to ensure that the spring begins extending only at the precise requested load threshold. These are suitable for heavy-duty door mechanisms, electronic switches, and robotic joints requiring zero-slack operation.',
+            img: 'assets/Tension_Springs-removebg-preview.png',
+            category: 'industrial',
+            specs: {
+              "Type": "Extension / Tension",
+              "Material": "Pre-Hardened Steel",
+              "Initial Tension": "Custom Calibrated",
+              "Extension Rate": "Linear",
+              "Mount": "Circular Loops (Std)",
+              "Service Range": "High-Temp Ready",
+              "Price": "Rs 75 / Piece"
+            },
+            features: ["Calibrated Return Force", "Zero-Slack Coiling", "Durable Static Mounting", "Custom Extension Range"]
+          },
+          'stainless-steel-spring': {
+            title: 'Stainless Steel Spring',
+            desc: 'Technical experts in high-precision Stainless Steel Spring manufacturing.',
+            detailedDesc: 'Our specialized Stainless Steel Spring series is the pinnacle of corrosion-resistant engineering. Using superior metallurgical grades like 304, 316, and 17-7 PH, we create springs that thrive in acidic, saline, and high-purity environments. These are extensively used in pharmaceutical processing, surgical instrumentation, and maritime navigation systems where material failure is not an option.',
+            img: 'assets/Stainless_Steel_Spring-removebg-preview.png',
+            category: 'stainless',
+            specs: {
+              "Grade": "17-7 PH / SS 316",
+              "Purity": "Medical Ready",
+              "Magnetism": "Non-Magnetic Options",
+              "Thermal Range": "-50 to +300C",
+              "Finish": "Electropolished",
+              "Price": "Rs 150 / Piece"
+            },
+            features: ["Extreme Acid Resist", "Surgical Instrumentation Grade", "Non-Magnetic Alloys", "High Surface Purity"]
+          },
+          'ss-spring-chiill': {
+            title: 'Ss Spring Chiill',
+            desc: 'Specifically chilled and heat-treated stainless variants for extreme rigidity.',
+            detailedDesc: 'The "Chiill" series is a proprietary line of springs that undergo cryogenic treatment (sub-zero chilling) following the tempering process. This stabilizes the austenite-to-martensite transformation in the steel, resulting in a spring with unparalleled dimensional stability and extreme rigidity. They are essential for laboratory instrumentation and high-precision CNC tool holders where thermal drift must be kept to zero.',
+            img: 'assets/Ss_Spring_Chiill-removebg-preview.png',
+            category: 'industrial',
+            specs: {
+              "Treatment": "Cryogenic (-196C)",
+              "Molecular State": "Fully Martensitic",
+              "Rigidity": "Maximum",
+              "Dimensional Drift": "Zero",
+              "Material": "Special SS 304H",
+              "Verification": "X-Ray Diffracted",
+              "Price": "Rs 210 / Piece"
+            },
+            features: ["Cryogenic Stabilized", "Zero-Drift Coils", "Extreme Rigid State", "Lab-Grade Engineering"]
+          },
+          'ss-304-spring': {
+            title: 'SS 304 Spring',
+            desc: 'Pioneers in the industry, we offer SS 304 Spring, Stainless Steel Spring, Stainless Steel 304 Spring, Spring Steel Spring, SS Spring and ss-spring from India.',
+            detailedDesc: 'As industry pioneers, our SS 304 Spring series represents years of metallurgical refinement and engineering excellence. We offer these in standard and custom counts for a "wide range of SS compression spring" needs globally. These springs meet rigorous ASTM and DIN standards, providing a reliable, verified, and high-performance solution for all general-purpose and specialized spring-steel needs.',
+            img: 'assets/SS_304_Spring-removebg-preview.png',
+            category: 'stainless',
+            specs: {
+              "Grade": "Industrial SS 304",
+              "Standards": "ASTM/DIN/ISO",
+              "Load Accuracy": "±3%",
+              "Origin": "Pioneering India Plant",
+              "Application": "Global Industrial",
+              "Price": "Rs 140 / Piece"
+            },
+            features: ["Global Export Grade", "Certified Purity", "Consistent Diameter", "Legacy Quality"]
+          },
+          'stainless-steel-304-spring': {
+            title: 'Stainless Steel 304 Spring',
+            desc: 'High-grade Stainless Steel 304 Spring for medical and food-grade environments.',
+            detailedDesc: 'Designed specifically for the food and beverage industry, these springs utilize "Clean-Wound" technology to ensure no metallic debris, lubrication contaminants, or surface residue remains. They are fully compatible with rigorous sterilization processes and high-pressure chemical washdowns, making them the safest choice for processing equipment in the food and medical sectors.',
+            img: 'assets/Stainless_Steel_304_Spring-removebg-preview.png',
+            category: 'stainless',
+            specs: {
+              "Material": "SS 304 (Low Carbon)",
+              "Finish": "Mirror / Matte",
+              "Process": "Clean-Wound Tech",
+              "Hygiene": "Sterilization Ready",
+              "Environment": "Wet/Food/Medical",
+              "Price": "Rs 160 / Piece"
+            },
+            features: ["Washdown Proof", "No Lubricant Residue", "Bio-Compatible Coils", "Food-Grade Certified"]
+          },
+          'spring-steel-spring': {
+            title: 'Spring Steel Spring',
+            desc: 'Advanced metallurgical Spring Steel Spring offering the highest fatigue life.',
+            detailedDesc: 'When dynamic performance and longevity are the only priorities, our high-alloy Spring Steel Spring is the definitive choice. It offers the highest possible fatigue life, often outlasting the machines it is installed in. By strictly controlling the phosphorus and sulfur content during steel selection, we virtually eliminate the structural flaws that lead to fatigue cracks under heavy vibration.',
+            img: 'assets/Spring_Steel_Spring-removebg-preview.png',
+            category: 'stainless',
+            specs: {
+              "Material": "High-Silicon Manganese Steel",
+              "Fatigue Life": "Theoretic Infinite",
+              "Elastic Limit": "Premium",
+              "Recovery": "100% Guaranteed",
+              "Hardness": "48-52 HRC",
+              "Price": "Rs 130 / Piece"
+            },
+            features: ["Zero Fatigue Propagation", "Highest Elastic Limit", "Structural Integrity Verified", "Dynamic Load Monster"]
+          },
+          'compression-spring': {
+            title: 'Compression Spring',
+            desc: 'General purpose Compression Spring manufacturing for diverse industrial applications.',
+            detailedDesc: 'Our base Compression Spring series is designed for modular versatility and wide-ranging compatibility. Whether for heavy industrial presses or intricate household appliances, these springs provide a reliable and consistent resistive force. They are manufactured to rigid tolerances and can be customized with various end treatments including grinding, tapering, or reduced end coils for specific fitment.',
+            img: 'assets/Compression_Spring-removebg-preview.png',
+            category: 'other',
+            specs: {
+              "Type": "Standard Compression",
+              "Material": "High-Grade Spring Steel",
+              "Origin": "Ahmedabad / India",
+              "Pitch": "Uniform / Variable",
+              "End Treatment": "Closed & Ground",
+              "Price": "Rs 55 / Piece"
+            },
+            features: ["Versatile Fitment", "Modular Sizing", "Reliable Force Dampening", "Standardized Sizing"]
+          },
+          'automatic-springs': {
+            title: 'Automatic Springs',
+            desc: 'Designed for seamless integration into high-speed automatic production lines.',
+            detailedDesc: 'Automatic Assembly Springs are engineered to solve the "nesting" problem that plagues high-speed manufacturing lines. Their specialized pitch and end geometry prevent springs from tangling during vibration-bowl feeding, leading to zero-downtime operations. Essential for high-volume automotive, pharmaceutical, and electronics assembly where throughput is critical.',
+            img: 'assets/Automatic_Springs-removebg-preview.png',
+            category: 'other',
+            specs: {
+              "Application": "Auto-Assembly / Feeding",
+              "Geometry": "Anti-Nesting / Anti-Tangle",
+              "Coating": "Teflon (Frictionless)",
+              "Precision": "Ultra-High (Tolerance ±0.01)",
+              "Throughput": "10k+ Units/Hour",
+              "Price": "Rs 25 / Piece"
+            },
+            features: ["Zero Downtime Design", "Anti-Tangle Geometry", "High Volume Ready", "Frictionless Surface"]
+          },
+        };
+
+        productData = productCatalog[productTitle] || productCatalog['ss-coil-spring'];
+      }
+
+      // Final Safety Check
+      if (!productData) {
+        productData = {
+          title: 'Industrial Spring',
+          desc: 'Premium precision engineering solution.',
+          detailedDesc: 'High-quality industrial spring solutions engineered for maximum durability and precision.',
+          img: 'assets/prod-industrial.png',
+          category: 'industrial',
+          specs: { "Type": "Industrial", "Material": "Spring Steel", "Price": "On Request" },
+          features: ["High Durability", "Precision Engineered"]
+        };
+      }
+
+      // Populate Elements
+      document.title = `${productData.title} | Angel Spring Precision`;
+
+      const premiumTitle = document.getElementById('premium-detail-title');
+      if (premiumTitle) premiumTitle.innerText = productData.title;
+
+      const heroTitle = document.getElementById('detail-title');
+      if (heroTitle) {
+        heroTitle.innerHTML = `<span>${productData.title}</span>`;
+      }
+
+      const categoryLabel = document.getElementById('detail-category-label');
+      if (categoryLabel) {
+        categoryLabel.innerText = (productData.category || 'ENGINEERING').toUpperCase() + ' SERIES';
+      }
+
+      const descMain = document.getElementById('detail-desc');
+      if (descMain) descMain.innerText = productData.description || productData.desc || 'Premium engineering solution.';
+
+      const longDesc = document.getElementById('detail-long-desc');
+      if (longDesc) {
+        const content = productData.detailedDesc || productData.description || productData.desc || 'Detailed technical analysis currently undergoing engineering review. Please contact our metallurgical team for full structural data.';
+        longDesc.innerHTML = `<p>${content}</p>`;
+      }
+
+      const descHero = document.getElementById('detail-desc-hero');
+      if (descHero) descHero.innerText = productData.description || productData.desc || 'Technical Specifications & Engineering Data.';
+
+      // Price update
+      const priceVal = document.getElementById('premium-price-val');
+      if (priceVal) {
+        let priceStr = 'On Request';
+        if (productData.specs && (productData.specs.Price || productData.specs.price)) {
+          priceStr = productData.specs.Price || productData.specs.price;
+        } else if (productData.price) {
+          priceStr = productData.price;
+        }
+
+        const priceNum = priceStr.match(/\d+/);
+        if (priceNum) priceVal.innerText = priceNum[0];
+        else priceVal.innerText = priceStr;
+      }
+
+      const mainImg = document.getElementById('detail-main-img');
+      const productImage = productData.img || productData.image || 'assets/prod-industrial.png';
+      if (mainImg) {
+        mainImg.src = productImage;
+        mainImg.alt = productData.title;
+        mainImg.onerror = () => {
+          mainImg.src = 'assets/prod-industrial.png';
+        };
+      }
+
+      // Thumbnails setup
+      const thumbs = document.querySelectorAll('.thumb-img');
+      thumbs.forEach(t => {
+        t.src = productImage;
+        t.onerror = () => t.src = 'assets/prod-industrial.png';
+      });
+
+      const thumbItems = document.querySelectorAll('.thumb-item');
+      thumbItems.forEach(item => {
+        item.addEventListener('click', () => {
+          thumbItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          const newSrc = item.querySelector('img').src;
+          mainImg.style.opacity = '0';
+          setTimeout(() => {
+            mainImg.src = newSrc;
+            mainImg.style.opacity = '1';
+          }, 300);
+        });
+      });
+
+      // Hero background (Prominent Product Image with Readability layer)
+      const hero = document.getElementById('detail-hero');
+      if (hero) {
+        hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('${productImage}')`;
+        hero.style.backgroundSize = 'cover';
+        hero.style.backgroundPosition = 'center';
+      }
+
+      // Specs Table Population
+      const specsTable = document.getElementById('premium-specs-table');
+      if (specsTable && productData.specs) {
+        specsTable.innerHTML = '';
+        Object.entries(productData.specs).forEach(([key, value]) => {
+          if (key.toLowerCase() === 'price') return; // Skip price in table as it has own section
+          specsTable.innerHTML += `
+                    <div class="spec-row">
+                        <div class="spec-key">${key}</div>
+                        <div class="spec-val">${value}</div>
+                    </div>
+                `;
+        });
+      }
+
+      // Features list
+      const featuresTags = document.getElementById('detail-features-tags');
+      if (featuresTags && productData.features) {
+        featuresTags.innerHTML = '';
+        productData.features.forEach(feature => {
+          featuresTags.innerHTML += `
+                    <div class="premium-feature-item">
+                        <i class="fas fa-check"></i> ${feature}
+                    </div>
+                `;
+        });
+      }
+
+      // Quote Triggers
+      const allActionBtns = [
+        document.getElementById('detail-quote-btn'),
+        document.getElementById('detail-interest-btn'),
+        document.getElementById('visual-quote-btn')
+      ];
+
+      allActionBtns.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof window.openQuoteModal === 'function') {
+              window.openQuoteModal(e, productData.title);
+            }
+          });
+        }
+      });
+
+      // Other Products (Premium Slick Slider with Full Responsive)
+      const productsSlider = document.getElementById('detail-products-slider');
+
+      // Full Catalog Data for Slider
+      const allItems = [
+        {
+          title: 'SS Compression Spring',
+          image: 'assets/Compression_Spring-removebg-preview.png',
+          description: 'Load-rated Grade 304/316 precision compression coils.',
+          detailedDesc: 'Manufactured from premium Grade 304 and 316 stainless steel, our compression springs are the industry standard for durability.',
+          category: 'compression',
+          specs: { "Material": "SS 304/316", "Wire Dia": "0.5-20mm", "ISO": "9001:2015", "Price": "Rs 120 / Piece" },
+          features: ["Fatigue Resistance", "Anti-Corrosive", "Precision Wound"]
+        },
+        {
+          title: 'SS Coil Spring',
+          image: 'assets/SS_304_Compression_Spring-removebg-preview.png',
+          description: 'High-tensile industrial compression springs for automotive.',
+          detailedDesc: 'Our SS Coil Springs are specifically developed for high-impact automotive and heavy machinery applications.',
+          category: 'compression',
+          specs: { "Application": "Automotive", "Wire Diameter": "4 mm", "Material": "Chrome Silicon Steel", "Price": "Rs 70 / Piece" },
+          features: ["High Impact Recovery", "Vibration Isolation", "Automotive Standards"]
+        },
+        {
+          title: 'Wire Spring Steel Spring',
+          image: 'assets/Wire_Spring_Steel_Spring-removebg-preview (1).png',
+          description: 'Leading Manufacturer of Wire Spring Steel Springs.',
+          detailedDesc: 'Utilizing high-carbon spring steel wire, we manufacture industrial-strength springs optimized for maximum return force.',
+          category: 'industrial',
+          specs: { "Material": "Carbon Steel", "Origin": "Ahmedabad", "Type": "Wire Form", "Price": "Rs 110 / Piece" },
+          features: ["Industrial Strength", "Oil-Quenched", "Fatigue Resistance"]
+        },
+        {
+          title: 'Ss Spring Chiill',
+          image: 'assets/Ss_Spring_Chiill-removebg-preview.png',
+          description: 'Cryogenically treated stainless variants for extreme rigidity.',
+          detailedDesc: 'The Chiill series undergoes cryogenic treatment to stabilize the austenite-to-martensite transformation.',
+          category: 'industrial',
+          specs: { "Treatment": "Cryogenic (-196C)", "Molecular State": "Fully Martensitic", "Price": "Rs 210 / Piece" },
+          features: ["Cryogenic Stabilized", "Zero-Drift Coils", "Extreme Rigid State"]
+        },
+        {
+          title: 'SS 304 Spring Series',
+          image: 'assets/SS_304_Spring-removebg-preview.png',
+          description: 'Industry pioneers in SS 304, SS Spring and variants.',
+          detailedDesc: 'As industry pioneers, our SS 304 Spring series represents years of metallurgical refinement.',
+          category: 'stainless',
+          specs: { "Grade": "SS 304", "Resist": "High", "Application": "Industrial", "Price": "Rs 140 / Piece" },
+          features: ["Anti-Fatigue", "Bio-Compatible", "Precision Wound"]
+        },
+        {
+          title: 'Precision Taper Spring',
+          image: 'assets/Taper_Spring-removebg-preview.png',
+          description: 'Conical and tapered designs for variable rate loads.',
+          detailedDesc: 'Conical springs essential for applications where space is at a premium.',
+          category: 'other',
+          specs: { "Type": "Conical", "Rate": "Variable", "Material": "SS 304", "Price": "Rs 180 / Piece" },
+          features: ["Anti-Tangle", "Space Saving", "Telescopic"]
+        },
+        {
+          title: 'Automatic Springs',
+          image: 'assets/Automatic_Springs-removebg-preview.png',
+          description: 'High-speed automatic production line integration.',
+          detailedDesc: 'Engineered to solve the nesting problem in high-speed manufacturing.',
+          category: 'other',
+          specs: { "Type": "Automation-Ready", "Precision": "High", "Price": "Rs 25 / Piece" },
+          features: ["High Throughput", "Anti-Nesting", "Zero Maintenance"]
+        }
+      ];
+
+      // Smart Product Filtering - Show Related Products Based on Current Product
+      let relatedProducts = [];
+
+      // First, try to find products in the same category
+      const sameCategoryProducts = allItems.filter(item =>
+        item.category === productData.category &&
+        item.title.toLowerCase() !== productData.title.toLowerCase()
+      );
+
+      // Then get products from other categories
+      const otherProducts = allItems.filter(item =>
+        item.category !== productData.category &&
+        item.title.toLowerCase() !== productData.title.toLowerCase()
+      );
+
+      // Combine: prioritize same category, then add others
+      relatedProducts = [...sameCategoryProducts, ...otherProducts];
+
+      // Fallback: if current product not found in catalog, show all except current
+      if (relatedProducts.length === 0) {
+        relatedProducts = allItems.filter(item =>
+          item.title.toLowerCase() !== productData.title.toLowerCase()
+        );
+      }
+
+      // Ensure we always have products to show
+      const displayProducts = relatedProducts.length > 0 ? relatedProducts : allItems.slice(0, 4);
+
+      if (productsSlider && displayProducts.length > 0) {
+        let itemsHTML = '';
+        displayProducts.forEach((item, index) => {
+          const itemJSON = JSON.stringify(item).replace(/'/g, "&apos;");
+          itemsHTML += `
+                    <div class="product-slide">
+                        <div class="product-card-premium">
+                            <div class="product-img-container">
+                               <img src="${item.image || item.img}" alt="${item.title}" onerror="this.src='assets/prod-industrial.png'">
+                            </div>
+                            <div class="product-category-tag">${item.category}</div>
+                            <h4>${item.title}</h4>
+                            <p>${item.description || item.desc}</p>
+                            <button class="product-explore-btn" onclick='updateDetailView(${itemJSON})'>Explore Series</button>
+                        </div>
+                    </div>
+                `;
+        });
+        productsSlider.innerHTML = itemsHTML;
+
+        // Initialize Slick Slider with Adaptive Responsive Configuration
+        setTimeout(() => {
+          if (typeof $.fn.slick === 'function') {
+            const slidesToShow = Math.min(displayProducts.length, 3);
+
+            $(productsSlider).slick({
+              dots: true,
+              infinite: displayProducts.length > 1,
+              speed: 600,
+              slidesToShow: slidesToShow,
+              slidesToScroll: 1,
+              autoplay: displayProducts.length > 1,
+              autoplaySpeed: 3500,
+              pauseOnHover: true,
+              pauseOnFocus: true,
+              cssEase: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              arrows: displayProducts.length > 1,
+              prevArrow: '<button type="button" class="slick-prev-custom"><i class="fas fa-chevron-left"></i></button>',
+              nextArrow: '<button type="button" class="slick-next-custom"><i class="fas fa-chevron-right"></i></button>',
+              responsive: [
+                {
+                  breakpoint: 1400,
+                  settings: {
+                    slidesToShow: Math.min(displayProducts.length, 3),
+                    slidesToScroll: 1,
+                    arrows: displayProducts.length > 1
+                  }
+                },
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: Math.min(displayProducts.length, 2),
+                    slidesToScroll: 1,
+                    arrows: displayProducts.length > 1,
+                    dots: true
+                  }
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    dots: true,
+                    centerMode: displayProducts.length > 1,
+                    centerPadding: displayProducts.length > 1 ? '40px' : '0px'
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    dots: displayProducts.length > 1,
+                    centerMode: false
+                  }
+                }
+              ]
+            });
+          }
+        }, 400);
+      }
+
+      // Dynamic Content Switcher (No full reload needed)
+      window.updateDetailView = (data) => {
+        sessionStorage.setItem('activeProductDetail', JSON.stringify(data));
+        const slug = data.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        window.location.href = `product-detail.html?name=${slug}`;
+      };
+
+      // Interactive Tilt
+      const imageWrapper = document.querySelector('.detail-image-wrapper');
+      const detailImg = document.getElementById('detail-main-img');
+
+      if (imageWrapper && detailImg) {
+        imageWrapper.addEventListener('mousemove', (e) => {
+          const rect = imageWrapper.getBoundingClientRect();
+          const deltaX = (e.clientX - (rect.left + rect.width / 2)) / 15;
+          const deltaY = (e.clientY - (rect.top + rect.height / 2)) / 15;
+          detailImg.style.transform = `scale(1.1) translate(${deltaX}px, ${deltaY}px)`;
+        });
+        imageWrapper.addEventListener('mouseleave', () => {
+          detailImg.style.transform = `scale(1) translate(0, 0)`;
+        });
+      }
+
+      // Force activation for critical components (Safety check for blank areas)
+      setTimeout(() => {
+        const heroBox = document.querySelector('.hero-glass-box');
+        if (heroBox) heroBox.classList.add('active');
+
+        const titleReveal = document.querySelector('.reveal-text');
+        if (titleReveal) titleReveal.classList.add('active');
+
+        // Scroll check: if user is at top, activate hero manually
+        if (window.scrollY < 100) {
+          document.querySelectorAll('.animate-up-hero').forEach(el => el.classList.add('active'));
+        }
+      }, 100);
+    });
+  </script>
+  <!-- Get Quote Modal -->
+  <div class="quote-modal-overlay" id="quoteModal">
+    <div class="quote-modal-content">
+      <button class="modal-close-btn" onclick="closeQuoteModal()">&times;</button>
+
+      <div class="quote-modal-header">
+        <div class="modal-badge">TECH-RFQ // 2026</div>
+        <h2>Project Analysis Request</h2>
+        <div class="h-line" style="width: 50px; background: var(--white); margin: 20px 0; opacity: 0.3;"></div>
+        <p>Submit your specifications for a comprehensive engineering evaluation.</p>
+      </div>
+
+      <form id="modalQuoteForm">
+        <input type="hidden" id="modalProductTarget" name="product_name">
+
+        <div class="modal-form-group">
+          <label>Full Name</label>
+          <input type="text" id="modalClientName" name="client_name" required placeholder="John Doe">
+        </div>
+
+        <div class="modal-form-group">
+          <label>Business Email</label>
+          <input type="email" id="modalClientEmail" name="client_email" required placeholder="john@company.com">
+        </div>
+
+        <div class="modal-form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="modalClientPhone" name="client_phone" required placeholder="+1 (555) 000-0000">
+        </div>
+
+        <div class="modal-form-group">
+          <label>Company Name</label>
+          <input type="text" id="modalCompany" name="company_name" placeholder="Optional">
+        </div>
+
+        <div class="modal-form-group">
+          <label>Inquiry Type</label>
+          <select id="modalInquiryType" name="inquiry_type">
+            <option value="Standard Quote">Standard Quote</option>
+            <option value="Custom Engineering">Custom Engineering</option>
+            <option value="Bulk Order">Bulk Order</option>
+          </select>
+        </div>
+
+        <div class="modal-form-group">
+          <label>Details / Requirements</label>
+          <textarea id="modalMessage" name="message" rows="3"
+            placeholder="Please specify quantity, material, or dimensions..."></textarea>
+        </div>
+
+        <button type="submit" class="modal-submit-btn">
+          Send Request <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+        </button>
+      </form>
+
+      <div class="modal-success" id="modalSuccessMsg">
+        <i class="fas fa-check-circle"></i>
+        <h3>Request Received!</h3>
+        <p>Our engineering team will contact you shortly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EmailJS Integration -->
+  <script type="text/javascript" src="js/email-config.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init(window.EMAIL_CONFIG.PUBLIC_KEY);
+    })();
+
+    // Modal Logic
+    window.openQuoteModal = function (e, productName) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('quoteModal');
+      const productInput = document.getElementById('modalProductTarget');
+      const form = document.getElementById('modalQuoteForm');
+      const successMsg = document.getElementById('modalSuccessMsg');
+
+      if (modal) {
+        modal.classList.add('active');
+        if (productInput && productName) {
+          productInput.value = productName;
+        }
+        // Reset form state
+        if (form) {
+          form.style.display = 'block';
+          form.reset();
+        }
+        if (successMsg) successMsg.style.display = 'none';
+      }
+    };
+
+    window.closeQuoteModal = function () {
+      const modal = document.getElementById('quoteModal');
+      if (modal) modal.classList.remove('active');
+    };
+
+    // Close on outside click
+    document.getElementById('quoteModal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeQuoteModal();
+      }
+    });
+
+    // Handle Form Submission
+    document.getElementById('modalQuoteForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const btn = this.querySelector('button[type="submit"]');
+      const originalBtnText = btn.innerHTML;
+      btn.innerHTML = 'Sending...';
+      btn.disabled = true;
+
+      // Prepare template parameters
+      const templateParams = {
+        // My Custom Template Variables
+        product_name: document.getElementById('modalProductTarget').value || 'General Inquiry',
+        client_name: document.getElementById('modalClientName').value,
+        client_email: document.getElementById('modalClientEmail').value,
+        client_phone: document.getElementById('modalClientPhone').value,
+        company_name: document.getElementById('modalCompany').value,
+        inquiry_type: document.getElementById('modalInquiryType').value,
+        message: document.getElementById('modalMessage').value,
+        client_phone_clean: document.getElementById('modalClientPhone').value.replace(/[^0-9]/g, ''),
+
+        // Standard/Default Fail-safes (Matches default EmailJS templates)
+        from_name: document.getElementById('modalClientName').value,
+        name: document.getElementById('modalClientName').value,
+        email: document.getElementById('modalClientEmail').value,
+        reply_to: document.getElementById('modalClientEmail').value,
+        to_name: 'Angel Spring Team',
+        subject: 'Quote: ' + (document.getElementById('modalProductTarget').value || 'General')
+      };
+
+      console.log("Sending Template Params:", templateParams);
+
+      emailjs.send(window.EMAIL_CONFIG.SERVICE_ID, window.EMAIL_CONFIG.TEMPLATE_ID, templateParams)
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+          document.getElementById('modalQuoteForm').style.display = 'none';
+          document.getElementById('modalSuccessMsg').style.display = 'block';
+          btn.innerHTML = originalBtnText;
+          btn.disabled = false;
+
+          // Auto close after 3 seconds
+          setTimeout(closeQuoteModal, 3000);
+        }, function (error) {
+          console.log('FAILED...', error);
+          alert('EmailJS Error: ' + JSON.stringify(error));
+          btn.innerHTML = originalBtnText;
+          btn.disabled = false;
+        });
+    });
+
+    // Auto Attach to Buttons (Header CTA)
+    document.addEventListener('DOMContentLoaded', () => {
+      const quoteBtns = document.querySelectorAll('.nav-cta, .nav-cta-mobile');
+      quoteBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openQuoteModal(e, 'General Inquiry');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
